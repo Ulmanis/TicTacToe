@@ -42,6 +42,7 @@ namespace TicTacToe
             {
                 labelName = "label" + i;
                 Grid.Controls[labelName].Text = string.Empty;
+                Grid.Controls[labelName].BackColor = Color.Transparent;
             }
         }
 
@@ -64,8 +65,10 @@ namespace TicTacToe
             {
                 label.Text = "O";
             }
-            CheckForWin();
+
             turnCount++;
+            PlaySound("beep_sound");
+            CheckForWin();
             CheckForDraw();
             xPlayerTurn = !xPlayerTurn;
             
@@ -109,8 +112,9 @@ namespace TicTacToe
             {
                 winner = "O";
             }
-            //MessageBox.Show(winner + " wins!");
             WinnerCellsChangeColor();
+            MessageBox.Show(winner + " wins!");
+
             InitializeCells();
             RestartGame();
         }
@@ -155,6 +159,12 @@ namespace TicTacToe
             firstLabel.BackColor = color;
             secondLabel.BackColor = color;
             thirdLabel.BackColor = color;
+        }
+        private void PlaySound(string soundName)
+        {
+            System.IO.Stream str = (System.IO.Stream)Properties.Resources.ResourceManager.GetObject(soundName);
+            System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
+            snd.Play();
         }
     }
 }
