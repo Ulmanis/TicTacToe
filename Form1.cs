@@ -76,7 +76,14 @@ namespace TicTacToe
             }
 
             turnCount++;
-            PlaySound("beep_sound");
+            if (xPlayerTurn)
+            {
+                PlaySound("beep_sound");
+            }
+            else
+            {
+                PlaySound("click_sound");
+            }
             CheckForWin();
             CheckForDraw();
             xPlayerTurn = !xPlayerTurn;
