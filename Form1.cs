@@ -43,16 +43,19 @@ namespace TicTacToe
             for(int i = 1; i <= 9; i++)
             {
                 labelName = "pictureBox" + i;
-                Grid.Controls[labelName].Tag = String.Empty;
-                Grid.Controls[labelName].BackColor = Color.Transparent;
+                PictureBox picture;
+                picture = (PictureBox)Grid.Controls[labelName];
+                picture.Tag = String.Empty;
+                picture.Image = null;
+                picture.BackColor = Color.Transparent;
             }
         }
 
         private void Player_Click(object sender, EventArgs e)
         {
-            PictureBox pic = (PictureBox)sender;
+            PictureBox picture = (PictureBox)sender;
 
-            if(pic.Tag != String.Empty)
+            if(picture.Tag != String.Empty)
             {
                 return;
             }
@@ -61,11 +64,15 @@ namespace TicTacToe
 
             if (xPlayerTurn)
             {
-                pic.Tag = "X";
+                picture.Tag = "X";
+                pic = picture;
+                timer1.Start();
             }
             else
             {
-                pic.Tag = "O";
+                picture.Tag = "O";
+                pic = picture;
+                timer1.Start();
             }
 
             turnCount++;
