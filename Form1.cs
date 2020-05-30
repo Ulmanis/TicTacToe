@@ -14,6 +14,8 @@ namespace TicTacToe
     {
         bool xPlayerTurn = true;
         int turnCount = 0;
+        int pictureCounter = 1;
+        PictureBox pic;
 
         public Form1()
         {
@@ -118,6 +120,27 @@ namespace TicTacToe
             InitializeCells();
             RestartGame();
         }
+
+        private void Animate()
+        {
+            string turn;
+            string pictureName;
+
+            turn = pic.Tag.ToString();
+            turn = turn.ToLower();
+
+
+            pictureName = turn +"_frame_0" + pictureCounter.ToString("00");
+            pic.Image = (Image)Properties.Resources.ResourceManager.GetObject(pictureName);
+            pic.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureCounter += 1;
+            if(pictureCounter > 20)
+            {
+                pictureCounter = 1;
+                timer1.Stop();
+            }
+        }
+
         private void WinnerCellsChangeColor()
         {
             if (pictureBox1.Tag == pictureBox2.Tag && pictureBox1.Tag == pictureBox3.Tag && pictureBox1.Tag != "")
@@ -165,6 +188,11 @@ namespace TicTacToe
             System.IO.Stream str = (System.IO.Stream)Properties.Resources.ResourceManager.GetObject(soundName);
             System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
             snd.Play();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Animate();
         }
     }
 }
